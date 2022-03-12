@@ -17,8 +17,8 @@ namespace MultiQueueSimulation
         static void Main()
         {
             SimulationSystem system = new SimulationSystem();
-            //ReadDataFromFile file_reader = new ReadDataFromFile();
-            //file_reader.read_test_case_data(system);
+            ReadDataFromFile file_reader = new ReadDataFromFile();
+            file_reader.read_test_case_data(system);
             string result = TestingManager.Test(system, Constants.FileNames.TestCase1);
             MessageBox.Show(result);
             Application.EnableVisualStyles();
