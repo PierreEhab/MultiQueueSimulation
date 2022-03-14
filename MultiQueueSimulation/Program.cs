@@ -22,9 +22,13 @@ namespace MultiQueueSimulation
             Calculator calculator = new Calculator();
            
             system.InterarrivalDistribution = calculator.calculateCommulativeProbability(system.InterarrivalDistribution);
+            for (int i = 0; i < system.NumberOfServers; i++) {
+                system.Servers[i].TimeDistribution = calculator.calculateCommulativeProbability(system.Servers[i].TimeDistribution);
+            }
 
-            MessageBox.Show(system.InterarrivalDistribution[1].MinRange.ToString());
-            MessageBox.Show(system.InterarrivalDistribution[1].MaxRange.ToString());
+
+            //MessageBox.Show(system.InterarrivalDistribution[1].MinRange.ToString());
+            //MessageBox.Show(system.InterarrivalDistribution[1].MaxRange.ToString());
             Random rnd = new Random();
             if (system.StoppingCriteria == Enums.StoppingCriteria.NumberOfCustomers)
             {
@@ -34,11 +38,11 @@ namespace MultiQueueSimulation
                     simulationCase.CustomerNumber = i + 1;
 
                     if (i == 0) {
-                        simulationCase.RandomInterArrival = -1;
-                        simulationCase.InterArrival = -1;
+                        simulationCase.RandomInterArrival = 1;
+                        simulationCase.InterArrival = 0;
                         simulationCase.ArrivalTime = 0;
                         // Generate Random Service time number.
-                        simulationCase.RandomService = rnd.Next(0, 100);
+                        simulationCase.RandomService = rnd.Next(1, 100);
                         // check on server selection
                         int chosenServerNumber = -1;
                         switch (system.SelectionMethod)
@@ -48,7 +52,7 @@ namespace MultiQueueSimulation
                                 Console.WriteLine(chosenServerNumber);
                                 break;
                             case Enums.SelectionMethod.HighestPriority:
-                                chosenServerNumber = calculator.GetHighestPriorityServerID(system, simulationCase);
+                                chosenServerNumber = 1;
                                 Console.WriteLine(chosenServerNumber);
                                 break;
                             case Enums.SelectionMethod.LeastUtilization:
@@ -56,18 +60,22 @@ namespace MultiQueueSimulation
                         }
                         simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
                         simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
+                        simulationCase.AssignedServer.FinishTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
+                        simulationCase.TimeInQueue = 0;
+                        simulationCase.StartTime = 0;
+                        simulationCase.EndTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
                         system.SimulationTable.Add(simulationCase); 
                     }
                     else
                     {
                         // Generate Random interarival number.
-                        simulationCase.RandomInterArrival = rnd.Next(0, 100);
+                        simulationCase.RandomInterArrival = rnd.Next(1, 100);
                         // Get Interarrival time from generated random number.
                         simulationCase.InterArrival = calculator.GetTimeForRandomValue(table:system.InterarrivalDistribution,simulationCase.RandomInterArrival);
                         // set arrival time.
                         simulationCase.ArrivalTime = system.SimulationTable[i-1].ArrivalTime + simulationCase.InterArrival;
                         // Generate Random Service time number.
-                        simulationCase.RandomService = rnd.Next(0, 100);
+                        simulationCase.RandomService = rnd.Next(1, 100);
                         // check on server selection
                         int chosenServerNumber = -1;
                         switch (system.SelectionMethod) {
@@ -82,8 +90,26 @@ namespace MultiQueueSimulation
                             case Enums.SelectionMethod.LeastUtilization:
                                 break;
                         }
-                        simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
-                        simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table:simulationCase.AssignedServer.TimeDistribution,randomValue:simulationCase.RandomService);
+                        if (chosenServerNumber != -1) {
+                            simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
+                            simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
+                            simulationCase.AssignedServer.FinishTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
+                            simulationCase.TimeInQueue = 0;
+                            simulationCase.StartTime= simulationCase.ArrivalTime;
+                            simulationCase.EndTime= simulationCase.ArrivalTime + simulationCase.ServiceTime;
+                        }
+                        else
+                        {
+                            chosenServerNumber = calculator.GetFirstFreeServer(system,simulationCase);
+                            int delay = system.Servers[chosenServerNumber - 1].FinishTime - simulationCase.ArrivalTime;
+                            simulationCase.TimeInQueue = delay;
+                            simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
+                            simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
+                            simulationCase.AssignedServer.FinishTime = simulationCase.AssignedServer.FinishTime + simulationCase.ServiceTime;
+                            simulationCase.StartTime = simulationCase.ArrivalTime + simulationCase.TimeInQueue;
+                            simulationCase.EndTime = simulationCase.StartTime + simulationCase.ServiceTime;
+                        }
+
                         system.SimulationTable.Add(simulationCase);
                     }
                 }
@@ -92,8 +118,8 @@ namespace MultiQueueSimulation
                 
             
             
-            //string result = TestingManager.Test(system, Constants.FileNames.TestCase1);
-            //MessageBox.Show(result);
+            string result = TestingManager.Test(system, Constants.FileNames.TestCase1);
+            MessageBox.Show(result);
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());

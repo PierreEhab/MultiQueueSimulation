@@ -11,7 +11,7 @@ namespace MultiQueueModels
     {
         public SimulationSystem read_test_case_data(SimulationSystem simSys) 
         {
-            String fileName = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
+            String fileName = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
             String[] file_lines = File.ReadAllLines(fileName);
             simSys.NumberOfServers = int.Parse(file_lines[1]);
             simSys.StoppingNumber = int.Parse(file_lines[4]);

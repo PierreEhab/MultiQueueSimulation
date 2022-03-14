@@ -79,9 +79,16 @@ namespace MultiQueueModels
                 serverId = availableServers[0].ID;
 
             }
-            else
-            {
-                Debug.Assert(false);
+            return serverId;
+        }
+        public int GetFirstFreeServer(SimulationSystem simSys, SimulationCase simCase) {
+            int nextFinishTime = 10000;
+            int serverId = -1;
+            for (int i = 0; i < simSys.NumberOfServers; i++) {
+                if (simSys.Servers[i].FinishTime < nextFinishTime) {
+                    nextFinishTime = simSys.Servers[i].FinishTime;
+                    serverId = simSys.Servers[i].ID;
+                }
             }
             return serverId;
         }
