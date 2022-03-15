@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,16 +9,17 @@ namespace MultiQueueModels
 {
     public class ReadDataFromFile
     {
-        public SimulationSystem read_test_case_data(SimulationSystem simSys) 
+        public SimulationSystem read_test_case_data(SimulationSystem simSys, String path)
         {
-            String fileName = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
+            String fileName = path;
             String[] file_lines = File.ReadAllLines(fileName);
             simSys.NumberOfServers = int.Parse(file_lines[1]);
             simSys.StoppingNumber = int.Parse(file_lines[4]);
             // Check on Stopping Criteria
             simSys.StoppingCriteria = file_lines[7] == "1" ? Enums.StoppingCriteria.NumberOfCustomers : Enums.StoppingCriteria.SimulationEndTime;
             // Check on Selection Method
-            switch (file_lines[10]) {
+            switch (file_lines[10])
+            {
                 case "1":
                     simSys.SelectionMethod = Enums.SelectionMethod.HighestPriority;
                     break;
@@ -31,9 +32,10 @@ namespace MultiQueueModels
             }
             int serversIndex = 0;
             // loop to get interarrival table.
-            for (int i = 13; i < file_lines.Length; i++) { 
+            for (int i = 13; i < file_lines.Length; i++)
+            {
                 // interarrival table is ended.
-                if(file_lines[i] == "")
+                if (file_lines[i] == "")
                 {
                     serversIndex = i + 2;
                     break;
@@ -53,7 +55,8 @@ namespace MultiQueueModels
                 }
             }
             // loop to get servers data.
-            for (int i = 0; i < simSys.NumberOfServers; i++) {
+            for (int i = 0; i < simSys.NumberOfServers; i++)
+            {
                 // Create New Server.
                 Server server = new Server();
                 // Set Server Id.
@@ -76,7 +79,7 @@ namespace MultiQueueModels
                 // add the server to the system.
                 simSys.Servers.Add(server);
             }
-            
+
             return simSys;
         }
     }
