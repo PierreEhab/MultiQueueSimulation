@@ -28,17 +28,17 @@ namespace MultiQueueSimulation
             if (comboBox1.SelectedItem.ToString() == "Test Case 1")
             {
                 MessageBox.Show("Test Case 1 uploaded");
-                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
+                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
             }
             else if (comboBox1.SelectedItem.ToString() == "Test Case 2")
             {
                 MessageBox.Show("Test Case 2 Uploaded");
-                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
+                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
             }
             else if (comboBox1.SelectedItem.ToString() == "Test Case 3")
             {
                 MessageBox.Show("Test Case 3 uploaded");
-                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
+                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
             }
         }
 
@@ -68,8 +68,8 @@ namespace MultiQueueSimulation
                 dataGridView1.Rows[n].Cells[4].Value = Sim_System.SimulationTable[n].RandomService;
                 dataGridView1.Rows[n].Cells[5].Value = Sim_System.SimulationTable[n].AssignedServer.ID;
                 dataGridView1.Rows[n].Cells[6].Value = Sim_System.SimulationTable[n].StartTime;
-                dataGridView1.Rows[n].Cells[7].Value = Sim_System.SimulationTable[n].ServiceTime;
-                dataGridView1.Rows[n].Cells[8].Value = Sim_System.SimulationTable[n].EndTime;
+                dataGridView1.Rows[n].Cells[7].Value = Sim_System.SimulationTable[n].EndTime;
+                dataGridView1.Rows[n].Cells[8].Value = Sim_System.SimulationTable[n].ServiceTime;
                 dataGridView1.Rows[n].Cells[9].Value = Sim_System.SimulationTable[n].TimeInQueue;
             }
         }

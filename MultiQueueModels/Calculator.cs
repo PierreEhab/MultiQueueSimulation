@@ -33,7 +33,7 @@ namespace MultiQueueModels
             int serviceTime = -1;
             for (int i = 0; i < table.Count; i++)
             {
-                if (randomValue > table[i].MinRange && randomValue < table[i].MaxRange)
+                if (randomValue >= table[i].MinRange && randomValue <= table[i].MaxRange)
                 {
                     serviceTime = table[i].Time;
                 }
@@ -69,7 +69,7 @@ namespace MultiQueueModels
             for (int i = 0; i < simSys.Servers.Count; i++)
             {
 
-                if (simCase.ArrivalTime > simSys.Servers[i].FinishTime)
+                if (simCase.ArrivalTime >= simSys.Servers[i].FinishTime)
                 {
                     availableServers.Add(simSys.Servers[i]);
                 }
