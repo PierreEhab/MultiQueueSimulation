@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace MultiQueueModels
@@ -23,19 +21,13 @@ namespace MultiQueueModels
             String testCasePath = Path;
             ReadDataFromFile file_reader = new ReadDataFromFile();
             file_reader.read_test_case_data(system, testCasePath);
-
-
             Calculator calculator = new Calculator();
-
+            system.queueSeconds = new Dictionary<int, List<int>>();
             system.InterarrivalDistribution = calculator.calculateCommulativeProbability(system.InterarrivalDistribution);
             for (int i = 0; i < system.NumberOfServers; i++)
             {
                 system.Servers[i].TimeDistribution = calculator.calculateCommulativeProbability(system.Servers[i].TimeDistribution);
             }
-
-
-            //MessageBox.Show(system.InterarrivalDistribution[1].MinRange.ToString());
-            //MessageBox.Show(system.InterarrivalDistribution[1].MaxRange.ToString());
             Random rnd = new Random();
             if (system.StoppingCriteria == Enums.StoppingCriteria.NumberOfCustomers)
             {
@@ -115,6 +107,17 @@ namespace MultiQueueModels
                             chosenServerNumber = calculator.GetFirstFreeServer(system, simulationCase);
                             int delay = system.Servers[chosenServerNumber - 1].FinishTime - simulationCase.ArrivalTime;
                             simulationCase.TimeInQueue = delay;
+                            for (int j = 0; j < simulationCase.TimeInQueue; j++) {
+                                if (system.queueSeconds.ContainsKey(simulationCase.ArrivalTime + j))
+                                {
+                                    system.queueSeconds[simulationCase.ArrivalTime + j].Add(simulationCase.CustomerNumber);
+                                }
+                                else {
+                                    List<int> customerNumber = new List<int>();
+                                    customerNumber.Add(simulationCase.CustomerNumber);
+                                    system.queueSeconds.Add(simulationCase.ArrivalTime + j,customerNumber);
+                                }
+                            }
                             simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
                             simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
                             simulationCase.AssignedServer.TotalWorkingTime += simulationCase.ServiceTime;
@@ -126,7 +129,23 @@ namespace MultiQueueModels
                     }
                 }
             }
-            
+            int maxQueueLen = 0;
+            foreach (KeyValuePair<int, List<int>> entry in system.queueSeconds)
+            {
+                if (entry.Value.Count > maxQueueLen) {
+                   maxQueueLen = entry.Value.Count;
+                }
+                
+            }
+            Console.WriteLine("--------------------------------------------------------");
+            Console.WriteLine(maxQueueLen);
+            system.PerformanceMeasures.MaxQueueLength = maxQueueLen;
+            Console.WriteLine(system.PerformanceMeasures.MaxQueueLength);
+            system.PerformanceMeasures.AverageWaitingTime = calculator.calculateAverageWaitingTime(system);
+            Console.WriteLine(system.PerformanceMeasures.AverageWaitingTime);
+            system.PerformanceMeasures.WaitingProbability = calculator.calculateProbabilityOfWaiting(system);
+            Console.WriteLine(system.PerformanceMeasures.WaitingProbability);
+
         }
 
         ///////////// INPUTS ///////////// 
@@ -140,7 +159,7 @@ namespace MultiQueueModels
         ///////////// OUTPUTS /////////////
         public List<SimulationCase> SimulationTable { get; set; }
         public PerformanceMeasures PerformanceMeasures { get; set; }
-        public 
+        public Dictionary<int,List<int>> queueSeconds { get; set; }
 
     }
 }

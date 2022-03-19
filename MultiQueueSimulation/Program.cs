@@ -19,19 +19,12 @@ namespace MultiQueueSimulation
 
             // new System is required to run the form
             SimulationSystem system = new SimulationSystem();
-            
-            // string result = TestingManager.Test(system, Constants.FileNames.TestCase1);
-            // MessageBox.Show(result);
-            Calculator calculator = new Calculator();
-
             //running the form
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Form1 System_Form = new Form1(system);
             Application.Run(System_Form);
-            PerformanceMeasures performanceMeasures = new PerformanceMeasures();
-            performanceMeasures.AverageWaitingTime = calculator.calculateAverageWaitingTime(system);
-            performanceMeasures.WaitingProbability = calculator.calculateProbabilityOfWaiting(system);
+            
             string result = TestingManager.Test(system, Constants.FileNames.TestCase2);
             MessageBox.Show(result);
 

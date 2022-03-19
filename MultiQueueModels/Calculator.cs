@@ -115,7 +115,9 @@ namespace MultiQueueModels
             return numberOfCustomers;
         }
         public decimal calculateProbabilityOfWaiting(SimulationSystem simSys) {
-            return GetNumberOfCustomersWhoWaited(simSys) / simSys.SimulationTable.Count;
+            decimal numberOfCustomersWhoWaited = GetNumberOfCustomersWhoWaited(simSys);
+            decimal probabilityOfWaiting = numberOfCustomersWhoWaited / simSys.SimulationTable.Count;
+            return probabilityOfWaiting;
         }
     }
 }
