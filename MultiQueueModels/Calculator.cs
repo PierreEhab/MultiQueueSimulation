@@ -92,6 +92,30 @@ namespace MultiQueueModels
             }
             return serverId;
         }
-
+        public int GetTotalWaitingTime(SimulationSystem simSys) {
+            int totalWaitingTime = 0;
+            foreach (SimulationCase simCase in simSys.SimulationTable)
+            {
+                totalWaitingTime += simCase.TimeInQueue;
+            }
+            return totalWaitingTime;
+        }
+        public decimal calculateAverageWaitingTime(SimulationSystem simSys) { 
+            decimal totalWaitingTime = GetTotalWaitingTime(simSys);
+            decimal averageWaitingTime = totalWaitingTime / simSys.SimulationTable.Count;
+            return averageWaitingTime;
+        }
+        public int GetNumberOfCustomersWhoWaited(SimulationSystem simSys) { 
+            int numberOfCustomers = 0;
+            foreach (SimulationCase simCase in simSys.SimulationTable) {
+                if (simCase.TimeInQueue > 0) {
+                    numberOfCustomers++;
+                }
+            }
+            return numberOfCustomers;
+        }
+        public decimal calculateProbabilityOfWaiting(SimulationSystem simSys) {
+            return GetNumberOfCustomersWhoWaited(simSys) / simSys.SimulationTable.Count;
+        }
     }
 }

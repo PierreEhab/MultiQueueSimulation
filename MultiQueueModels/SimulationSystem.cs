@@ -105,6 +105,7 @@ namespace MultiQueueModels
                             simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
                             simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
                             simulationCase.AssignedServer.FinishTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
+                            simulationCase.AssignedServer.TotalWorkingTime += simulationCase.ServiceTime;
                             simulationCase.TimeInQueue = 0;
                             simulationCase.StartTime = simulationCase.ArrivalTime;
                             simulationCase.EndTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
@@ -116,11 +117,11 @@ namespace MultiQueueModels
                             simulationCase.TimeInQueue = delay;
                             simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
                             simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
+                            simulationCase.AssignedServer.TotalWorkingTime += simulationCase.ServiceTime;
                             simulationCase.AssignedServer.FinishTime = simulationCase.AssignedServer.FinishTime + simulationCase.ServiceTime;
                             simulationCase.StartTime = simulationCase.ArrivalTime + simulationCase.TimeInQueue;
                             simulationCase.EndTime = simulationCase.StartTime + simulationCase.ServiceTime;
                         }
-
                         system.SimulationTable.Add(simulationCase);
                     }
                 }
@@ -139,6 +140,7 @@ namespace MultiQueueModels
         ///////////// OUTPUTS /////////////
         public List<SimulationCase> SimulationTable { get; set; }
         public PerformanceMeasures PerformanceMeasures { get; set; }
+        public 
 
     }
 }
