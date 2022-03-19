@@ -28,17 +28,26 @@ namespace MultiQueueSimulation
             if (comboBox1.SelectedItem.ToString() == "Test Case 1")
             {
                 MessageBox.Show("Test Case 1 uploaded");
-                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
+                // shafai path
+                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
+                // pierre path
+                //Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
             }
             else if (comboBox1.SelectedItem.ToString() == "Test Case 2")
             {
                 MessageBox.Show("Test Case 2 Uploaded");
-                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
+                // shafai path
+                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
+                // pierre
+                //Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
             }
             else if (comboBox1.SelectedItem.ToString() == "Test Case 3")
             {
                 MessageBox.Show("Test Case 3 uploaded");
-                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
+                // shafai path
+                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
+                // pierre
+                //Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
             }
         }
 
@@ -72,6 +81,16 @@ namespace MultiQueueSimulation
                 dataGridView1.Rows[n].Cells[8].Value = Sim_System.SimulationTable[n].ServiceTime;
                 dataGridView1.Rows[n].Cells[9].Value = Sim_System.SimulationTable[n].TimeInQueue;
             }
+
+            //filling text boxes of performance measures
+            textBox1.Text = Sim_System.PerformanceMeasures.AverageWaitingTime.ToString();
+            textBox2.Text = Sim_System.PerformanceMeasures.WaitingProbability.ToString();
+            textBox3.Text = Sim_System.PerformanceMeasures.MaxQueueLength.ToString();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

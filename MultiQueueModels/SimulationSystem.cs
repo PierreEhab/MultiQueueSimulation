@@ -126,7 +126,12 @@ namespace MultiQueueModels
                     }
                 }
             }
-            
+
+            //calculating performance measures after completing the table
+            system.PerformanceMeasures.AverageWaitingTime = calculator.calculateAverageWaitingTime(system);
+            system.PerformanceMeasures.WaitingProbability = calculator.calculateProbabilityOfWaiting(system);
+
+
         }
 
         ///////////// INPUTS ///////////// 
@@ -139,8 +144,7 @@ namespace MultiQueueModels
 
         ///////////// OUTPUTS /////////////
         public List<SimulationCase> SimulationTable { get; set; }
-        public PerformanceMeasures PerformanceMeasures { get; set; }
-        public 
+        public PerformanceMeasures PerformanceMeasures { get; set; } 
 
     }
 }
