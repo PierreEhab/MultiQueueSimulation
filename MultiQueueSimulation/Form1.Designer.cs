@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Customer_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,17 +50,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.Servers_ComboBox = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Test Case 1",
-            "Test Case 2",
-            "Test Case 3"});
-            this.comboBox1.Location = new System.Drawing.Point(12, 37);
+            this.comboBox1.Location = new System.Drawing.Point(18, 12);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(414, 21);
             this.comboBox1.TabIndex = 0;
@@ -78,9 +81,9 @@
             this.Column7,
             this.Column8,
             this.Column9});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 123);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 56);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1136, 260);
+            this.dataGridView1.Size = new System.Drawing.Size(1136, 302);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -146,7 +149,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(636, 68);
+            this.button1.Location = new System.Drawing.Point(451, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 38);
             this.button1.TabIndex = 2;
@@ -156,7 +159,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(152, 419);
+            this.textBox1.Location = new System.Drawing.Point(155, 369);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(192, 34);
@@ -165,7 +168,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(490, 419);
+            this.textBox2.Location = new System.Drawing.Point(493, 369);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(178, 34);
@@ -173,7 +176,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(814, 419);
+            this.textBox3.Location = new System.Drawing.Point(817, 369);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(192, 34);
@@ -182,7 +185,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 411);
+            this.label1.Location = new System.Drawing.Point(15, 361);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(134, 49);
             this.label1.TabIndex = 6;
@@ -191,7 +194,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(350, 419);
+            this.label2.Location = new System.Drawing.Point(353, 369);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(134, 49);
             this.label2.TabIndex = 7;
@@ -200,17 +203,59 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(674, 411);
+            this.label3.Location = new System.Drawing.Point(677, 361);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(134, 49);
             this.label3.TabIndex = 8;
             this.label3.Text = "Maximum Queue\r\nLength";
             // 
+            // chart1
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            this.chart1.Location = new System.Drawing.Point(388, 413);
+            this.chart1.Name = "chart1";
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
+            this.chart1.Size = new System.Drawing.Size(737, 248);
+            this.chart1.TabIndex = 9;
+            this.chart1.Text = "chart1";
+            title3.Name = "Title1";
+            title3.Text = "Server Busy Time";
+            this.chart1.Titles.Add(title3);
+            // 
+            // Servers_ComboBox
+            // 
+            this.Servers_ComboBox.FormattingEnabled = true;
+            this.Servers_ComboBox.Items.AddRange(new object[] {
+            "Test Case 1",
+            "Test Case 2",
+            "Test Case 3"});
+            this.Servers_ComboBox.Location = new System.Drawing.Point(44, 496);
+            this.Servers_ComboBox.Name = "Servers_ComboBox";
+            this.Servers_ComboBox.Size = new System.Drawing.Size(303, 21);
+            this.Servers_ComboBox.TabIndex = 10;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(116, 534);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(163, 36);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Plot";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1160, 485);
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ClientSize = new System.Drawing.Size(1160, 719);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.Servers_ComboBox);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -224,6 +269,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,6 +296,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.ComboBox Servers_ComboBox;
+        private System.Windows.Forms.Button button2;
     }
 }
 

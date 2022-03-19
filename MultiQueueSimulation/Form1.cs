@@ -20,10 +20,15 @@ namespace MultiQueueSimulation
         {
             Sim_System = system;
             InitializeComponent();
+            //filling combobox 1
+            comboBox1.Items.Add("Test Case 1");
+            comboBox1.Items.Add("Test Case 2");
+            comboBox1.Items.Add("Test Case 3");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+           
 
             if (comboBox1.SelectedItem.ToString() == "Test Case 1")
             {
@@ -60,8 +65,15 @@ namespace MultiQueueSimulation
         {
             //simulation running is required
             Sim_System.Run_Simulation(Sim_System, Path);
+            Sim_System.Server_Performance_Measures(Sim_System);
 
-            MessageBox.Show(Sim_System.SimulationTable.Count().ToString());
+            //filling servers combo box
+            Servers_ComboBox.Items.Clear();
+            for (int i = 0; i < Sim_System.Servers.Count; i++)
+            {
+                Servers_ComboBox.Items.Add("Server "+ (i+1).ToString());
+            }
+
 
             //writing the table
             for (int i = 0; i < Sim_System.SimulationTable.Count(); i++)
@@ -91,6 +103,22 @@ namespace MultiQueueSimulation
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            chart1.Series["Series1"].Points.Clear();
+
+            for ( int i = 0; i < Sim_System.SimulationTable.Count; i++)
+            {
+                if (Sim_System.SimulationTable[i].AssignedServer.ID == Servers_ComboBox.SelectedIndex + 1)
+                {
+                    for (int j = 0; j < Sim_System.SimulationTable[i].ServiceTime; j++)
+                    {
+                        chart1.Series["Series1"].Points.AddXY(j + Sim_System.SimulationTable[i].StartTime, 1);
+                    }
+                }
+            }
         }
     }
 }

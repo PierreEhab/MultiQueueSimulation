@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
-    <Compile Include="QueueSecond.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="PerformanceMeasures.cs" />
     <Compile Include="ReadDataFromFile.cs" />
