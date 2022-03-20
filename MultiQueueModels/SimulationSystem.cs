@@ -61,8 +61,10 @@ namespace MultiQueueModels
                                 break;
                         }
                         simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
+                        simulationCase.AssignedServer.servedCustomers.Add(simulationCase.CustomerNumber);
                         simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
                         simulationCase.AssignedServer.FinishTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
+                        simulationCase.AssignedServer.TotalWorkingTime += simulationCase.ServiceTime;
                         simulationCase.TimeInQueue = 0;
                         simulationCase.StartTime = 0;
                         simulationCase.EndTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
@@ -96,6 +98,7 @@ namespace MultiQueueModels
                         if (chosenServerNumber != -1)
                         {
                             simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
+                            simulationCase.AssignedServer.servedCustomers.Add(simulationCase.CustomerNumber);
                             simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
                             simulationCase.AssignedServer.FinishTime = simulationCase.ArrivalTime + simulationCase.ServiceTime;
                             simulationCase.AssignedServer.TotalWorkingTime += simulationCase.ServiceTime;
@@ -122,6 +125,7 @@ namespace MultiQueueModels
                                 }
                             }
                             simulationCase.AssignedServer = system.Servers[chosenServerNumber - 1];
+                            simulationCase.AssignedServer.servedCustomers.Add(simulationCase.CustomerNumber);
                             simulationCase.ServiceTime = calculator.GetTimeForRandomValue(table: simulationCase.AssignedServer.TimeDistribution, randomValue: simulationCase.RandomService);
                             simulationCase.AssignedServer.TotalWorkingTime += simulationCase.ServiceTime;
                             simulationCase.AssignedServer.FinishTime = simulationCase.AssignedServer.FinishTime + simulationCase.ServiceTime;
@@ -168,21 +172,27 @@ namespace MultiQueueModels
             for ( int i = 0; i < system.Servers.Count; i++)
             {
                 //calculating idle time for each server and calutaing the probabilitis
-                int total_idletime = total_runtime - system.Servers[i].TotalWorkingTime;
+                decimal totalWorkingTime = system.Servers[i].TotalWorkingTime;
+                decimal total_idletime = total_runtime - totalWorkingTime;
 
                 //idle probability
                 system.Servers[i].IdleProbability = total_idletime / total_runtime;
                 //utilization probability
                 system.Servers[i].Utilization = system.Servers[i].TotalWorkingTime / total_runtime;
+                decimal numberOfServedCustomers = system.Servers[i].servedCustomers.Count;
+                decimal AverageServiceTime = 0;
+                if (numberOfServedCustomers > 0) {
+                    AverageServiceTime = totalWorkingTime / numberOfServedCustomers;
+                }
                 //average service time
-                system.Servers[i].AverageServiceTime = system.Servers[i].TotalWorkingTime / customer_number;
+                system.Servers[i].AverageServiceTime = AverageServiceTime;
             }
 
         }
 
         ///////////// INPUTS ///////////// 
         public int NumberOfServers { get; set; }
-        public int total_runtime { get; set; }
+        public decimal total_runtime { get; set; }
         public int StoppingNumber { get; set; }
         public List<Server> Servers { get; set; }
         public List<TimeDistribution> InterarrivalDistribution { get; set; }
