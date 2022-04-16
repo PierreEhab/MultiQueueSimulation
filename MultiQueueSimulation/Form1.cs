@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MultiQueueModels;
-//using MultiQueueTesting;
+using MultiQueueTesting;
 
 namespace MultiQueueSimulation
 {
@@ -60,6 +60,11 @@ namespace MultiQueueSimulation
 
         private void button1_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
+            Sim_System = new SimulationSystem();
+
+
+
             //simulation running is required
             Sim_System.Run_Simulation(Sim_System, Path);
             Sim_System.Server_Performance_Measures(Sim_System);
@@ -68,7 +73,7 @@ namespace MultiQueueSimulation
             Servers_ComboBox.Items.Clear();
             for (int i = 0; i < Sim_System.Servers.Count; i++)
             {
-                Servers_ComboBox.Items.Add("Server "+ (i+1).ToString());
+                Servers_ComboBox.Items.Add("Server " + (i + 1).ToString());
             }
 
 
@@ -95,9 +100,33 @@ namespace MultiQueueSimulation
             textBox1.Text = Sim_System.PerformanceMeasures.AverageWaitingTime.ToString();
             textBox2.Text = Sim_System.PerformanceMeasures.WaitingProbability.ToString();
             textBox3.Text = Sim_System.PerformanceMeasures.MaxQueueLength.ToString();
+
+
+            string result = "";
+            Console.WriteLine(comboBox1.SelectedItem.ToString());
+            if (comboBox1.SelectedItem.ToString() == "Test Case 1")
+            {
+                Console.WriteLine(comboBox1.SelectedItem.ToString());
+
+                result = TestingManager.Test(Sim_System, Constants.FileNames.TestCase1);
+            }
+            else if (comboBox1.SelectedItem.ToString() == "Test Case 2")
+            {
+                Console.WriteLine(comboBox1.SelectedItem.ToString());
+
+                result = TestingManager.Test(Sim_System, Constants.FileNames.TestCase2);
+            }
+            else if (comboBox1.SelectedItem.ToString() == "Test Case 3")
+            {
+                Console.WriteLine(comboBox1.SelectedItem.ToString());
+
+                result = TestingManager.Test(Sim_System, Constants.FileNames.TestCase3);
+            }
+
+            MessageBox.Show(result);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+            private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -106,6 +135,17 @@ namespace MultiQueueSimulation
         {
             chart1.Series["Series1"].Points.Clear();
 
+            //plotting empty plot
+            for (int i = 0; i < Sim_System.SimulationTable.Count; i++)
+            {
+                for (int j = 0; j < Sim_System.total_runtime; j++)
+                {
+                    chart1.Series["Series1"].Points.AddXY(j,0);
+                }
+                
+            }
+
+            //drawing busy plot
             for ( int i = 0; i < Sim_System.SimulationTable.Count; i++)
             {
                 if (Sim_System.SimulationTable[i].AssignedServer.ID == Servers_ComboBox.SelectedIndex + 1)

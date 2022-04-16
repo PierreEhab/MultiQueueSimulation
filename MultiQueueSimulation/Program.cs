@@ -26,8 +26,7 @@ namespace MultiQueueSimulation
             Form1 System_Form = new Form1(system);
             Application.Run(System_Form);
            
-            string result = TestingManager.Test(system, Constants.FileNames.TestCase2);
-            MessageBox.Show(result);
+           
 
         }
     }
