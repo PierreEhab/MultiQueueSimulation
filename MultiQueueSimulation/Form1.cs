@@ -33,23 +33,23 @@ namespace MultiQueueSimulation
             if (comboBox1.SelectedItem.ToString() == "Test Case 1")
             {
                 // shafai path
-                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
+                //Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
                 // pierre path
-                //Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
+                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase1.txt";
             }
             else if (comboBox1.SelectedItem.ToString() == "Test Case 2")
             {
                 // shafai path
-                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
+                //Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
                 // pierre
-                //Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
+                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase2.txt";
             }
             else if (comboBox1.SelectedItem.ToString() == "Test Case 3")
             {
                 // shafai path
-                Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
+                //Path = "C:/Users/moham/Documents/GitHub/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
                 // pierre
-                //Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
+                Path = "X:/FCIS/Fourth Year/Second Term/Modeling and Simulation/Labs/Lab 2/Lab 2 - Task 1/MultiQueueSimulation/MultiQueueSimulation/TestCases/TestCase3.txt";
             }
         }
 
