@@ -8,7 +8,7 @@ StoppingCriteria
 1
 
 SelectionMethod
-3
+2
 
 InterarrivalDistribution
 1, 0.5

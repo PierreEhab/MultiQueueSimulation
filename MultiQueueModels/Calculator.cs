@@ -81,6 +81,42 @@ namespace MultiQueueModels
             }
             return serverId;
         }
+        public int GetLeastUtilizedServerID(SimulationSystem simSys, SimulationCase simCase)
+        {
+            int serverId = -1;
+            List<Server> availableServers = new List<Server>();
+            // get all available servers;
+            for (int i = 0; i < simSys.Servers.Count; i++)
+            {
+
+                if (simCase.ArrivalTime >= simSys.Servers[i].FinishTime)
+                {
+                    availableServers.Add(simSys.Servers[i]);
+                }
+            }
+            if (availableServers.Count > 0)
+            {
+                decimal minUtilization = -1;
+                for (int i = 0; i < availableServers.Count; i++) {
+                    decimal utilization = simSys.Servers[i].TotalWorkingTime / simSys.total_runtime;
+                    if (i == 0) {
+                    minUtilization = utilization;
+                    }
+                    else
+                    {
+                        if (simSys.Servers[i].Utilization < minUtilization)
+                        {
+                            minUtilization = utilization;
+                            serverId = simSys.Servers[i].ID;
+                        }
+                    }
+                    
+                }
+
+            }
+            return serverId; 
+        }
+
         public int GetFirstFreeServer(SimulationSystem simSys, SimulationCase simCase) {
             int nextFinishTime = 10000;
             int serverId = -1;
